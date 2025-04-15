@@ -21,9 +21,11 @@ class Semaphore
     protected ?ScheduleApi $schedule = null;
     protected ?UserApi $user = null;
 
-    public function __construct(string $apiKey, bool $debug = false)
+    public function __construct(string $host, string $apiKey, bool $debug = false)
     {
-        $this->config()->setApiKey('Authorization', $apiKey);
+        $this->config()->setHost($host);
+        $this->config()->setApiKey('Authorization', \sprintf('Bearer %s', $apiKey));
+        $this->config()->setDebug($debug);
     }
 
     public function config(): Configuration
